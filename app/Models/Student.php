@@ -19,8 +19,10 @@ class Student extends Model
         'age',
     ];
 
-    /**
-     * Get the lessons for the course.
-     */
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+    
    
 }

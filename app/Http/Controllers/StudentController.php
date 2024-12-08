@@ -10,8 +10,14 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $student = Student::latest()->simplePaginate(3);
-
-       return $student;
+       
+       $students = Student::with('comments')->get(); //Eager Loading
+    
+    foreach ($students as $student) {
+    echo $student->name . "'s Comments:\n";
+    foreach ($student->comments as $comment) {
+        echo "- " . $comment->content . "\n";
+    }
+}
     }
 }
