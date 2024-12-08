@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Teacher;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 
@@ -10,6 +12,17 @@ class StudentController extends Controller
 {
     public function index()
     {
+
+        $students = Student::with('tags')->get();
+        foreach ($students as $student) {
+            echo $student->name . " Tags:\n";
+            foreach ($student->tags as $tag) {
+                echo "- " . $tag->name . "\n";
+            }
+        }
+        
+      
+
        $students = Student::with('comments')->get(); //Eager Loading
     
     foreach ($students as $student) {
