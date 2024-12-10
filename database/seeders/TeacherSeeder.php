@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Student;
+use App\Models\Teacher;
 
-class StudentSeeder extends Seeder
+class TeacherSeeder extends Seeder
 {
     public function run()
     {
-        Student::factory(10)->create();
+        Teacher::factory(3)->create();
     }
 }
