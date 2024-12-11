@@ -6,16 +6,16 @@ use App\Models\Student;
 use App\Models\Teacher;
 
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
     public function show($id)
     {
         $student = Student::find($id);
-        Gate::define('isStudent', function ($user, $student) {
-          return  $student->user_id == auth()->id();
-        });
+
+        if(auth()->user()->can('isStudent', $student)){
+            return $student;
+        }
         Gate::authorize('isStudent', $student);
 
 //        if ($student->user_id !== auth()->id()) {
