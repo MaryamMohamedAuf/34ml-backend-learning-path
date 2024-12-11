@@ -18,7 +18,10 @@ class StudentsResource extends JsonResource
         return [
             'id' =>$this->id,
             'Attributes'=>[
-                'name' => $this->name,
+                'name' => $this->when(
+                    $request->routeIs('students.show'),
+                    $this->name
+                ),
             ],
             'relations'=>[
         'user_id' => $this->user_id,
