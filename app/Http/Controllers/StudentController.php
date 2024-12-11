@@ -13,9 +13,14 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-        if ($student->user_id !== auth()->id()) {
-            abort(403);
-        }
+        Gate::define('isStudent', function ($user, $student) {
+          return  $student->user_id == auth()->id();
+        });
+        Gate::authorize('isStudent', $student);
+
+//        if ($student->user_id !== auth()->id()) {
+//            abort(403);
+//        }
         return $student;
     }
     public function index()
