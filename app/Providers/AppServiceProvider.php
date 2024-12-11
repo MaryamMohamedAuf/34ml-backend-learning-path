@@ -22,9 +22,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
        // phpinfo();
-        Gate::define('isStudent', function ($user, $student) {
-            return  $student->user_id == auth()->id();
-        });
+//        Gate::define('isStudent', function ($user, $student) {
+//            return  $student->user_id == auth()->id();
+//        });
         Model::preventLazyLoading();
     }
 }
