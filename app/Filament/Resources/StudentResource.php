@@ -26,6 +26,9 @@ class StudentResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('user_id')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('age')
                     ->required()
                     ->maxLength(255),
@@ -36,6 +39,8 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('user_id')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('age')

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name'); // Example: 'Science', 'Math'
             $table->timestamps();
         });
-    
+
     Schema::create('taggables', function (Blueprint $table) {
         $table->id();
         $table->foreignId('tag_id')->constrained()->onDelete('cascade'); // Reference tags
@@ -29,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('taggables');
+
         Schema::dropIfExists('tags');
     }
 };

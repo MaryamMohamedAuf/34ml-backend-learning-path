@@ -9,6 +9,7 @@ class Teacher extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'subject'
     ];
@@ -16,5 +17,9 @@ class Teacher extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

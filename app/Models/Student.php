@@ -15,6 +15,7 @@ class Student extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'age',
     ];
@@ -27,5 +28,9 @@ class Student extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -8,7 +8,9 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/Students/{id}', [StudentController::class, 'show']);
     Route::get('/Students', [StudentController::class, 'index']);
+
     Route::get('/Teachers', [TeacherController::class, 'index']);
 });
 

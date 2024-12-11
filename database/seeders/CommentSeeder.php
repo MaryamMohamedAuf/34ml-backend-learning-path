@@ -7,7 +7,8 @@ use App\Models\Comment;
 use App\Models\Student;
 use App\Models\Teacher;
 
-class CommentSeeder extends Seeder
+class
+CommentSeeder extends Seeder
 {
     public function run()
     {
