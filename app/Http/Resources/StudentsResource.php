@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\User;
 
 class StudentsResource extends JsonResource
 {
@@ -24,11 +26,10 @@ class StudentsResource extends JsonResource
                 ),
             ],
             'relations'=>[
-        'user_id' => $this->user_id,
-    ],
-            'links'=>[
-                'self' => 'todo',
-            ]
-        ];
+                'user_id' => $this->user_id,
+            ],
+            'includes' =>  new UserResource($this->whenLoaded('user'))
+
+            ];
     }
 }

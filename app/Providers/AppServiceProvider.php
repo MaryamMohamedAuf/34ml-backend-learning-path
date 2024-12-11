@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
 //        Gate::define('isStudent', function ($user, $student) {
 //            return  $student->user_id == auth()->id();
 //        });
-        Model::preventLazyLoading();
+       // Model::preventLazyLoading();
     }
 }

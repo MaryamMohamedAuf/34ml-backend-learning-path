@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Student extends Model
 {
@@ -29,7 +30,7 @@ class Student extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
-    public function user()
+    public function user():belongsTo
     {
         return $this->belongsTo(User::class);
     }
