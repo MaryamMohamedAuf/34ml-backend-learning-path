@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\V1\QueryFilters;
 use App\Http\Resources\StudentsResource;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Filters\V1\StudentFilters;
 
 class StudentController extends ApiController
 {
 
-    public function index()
+    public function index(StudentFilters $filters)
     {
-        if($this->includes('user')){
-            return StudentsResource::collection(Student::with('user')->paginate());
-        }
-        return StudentsResource::collection(Student::all());
+//        if($this->includes('user')){
+//            return StudentsResource::collection(Student::with('user')->paginate());
+//        }
+       // return StudentsResource::collection(Student::all());
+        return StudentsResource::collection(Student::filter($filters)->paginate());
 
     }
 
