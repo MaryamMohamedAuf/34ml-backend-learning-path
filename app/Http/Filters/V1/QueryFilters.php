@@ -18,6 +18,18 @@ abstract class QueryFilters
             }
         }
     }
+    protected function sort($value){
+        $sortAttr = explode(',',$value);
+        foreach ($sortAttr as $sortsAttr) {
+           $direction = 'asc';
+           if(strpos($sortsAttr,'-') !== false){
+               $direction = 'desc';
+               $sortsAttr = substr($sortsAttr,1);
+           }
+           return $this->builder->orderBy($sortsAttr,$direction);
+        }
+        return $this->builder;
+    }
     public function apply(Builder $builder)
     {
         $this->builder = $builder;
