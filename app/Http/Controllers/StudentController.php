@@ -15,12 +15,18 @@ class StudentController extends ApiController
 
     public function index(StudentFilters $filters)
     {
+//        [
+//            'includes'=>'user',
+//            'filters'=>[
+//                'title'=>'malak',
+//                'user_id'=>'14'
+//            ]
+//        ];
 //        if($this->includes('user')){
 //            return StudentsResource::collection(Student::with('user')->paginate());
 //        }
        // return StudentsResource::collection(Student::all());
         return StudentsResource::collection(Student::filter($filters)->paginate());
-
     }
 
 

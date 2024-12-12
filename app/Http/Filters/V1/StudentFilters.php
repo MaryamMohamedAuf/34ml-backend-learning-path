@@ -5,7 +5,12 @@ class StudentFilters extends QueryFilters
 {
     public  function name($value)
     {
-        return $this->builder->where('name', 'like', "%{$value}%");
+        return $this->builder->whereIn('name', explode(',', $value ));
+        //'like', "%{$value}%"
+    }
+    public  function user_id($value)
+    {
+        return $this->builder->whereIn('user_id', explode(',', $value ));
     }
 public function includes($value)
 {
