@@ -12,7 +12,6 @@ use App\Http\Filters\V1\StudentFilters;
 
 class StudentController extends ApiController
 {
-
     public function index(StudentFilters $filters)
     {
 //        [
@@ -29,26 +28,27 @@ class StudentController extends ApiController
         return StudentsResource::collection(Student::filter($filters)->paginate());
     }
 
-
     public function show($id)
         {
             $student = Student::find($id);
-        if($this->includes('user')){
-            return new StudentsResource($student->load('user'));
 
-        }
+//        if($this->includes('user')){
+//            return new StudentsResource($student->load('user'));
+//        }
+//            if ($student->user_id != auth()->id()) {
+//                return response()->json(['error' => 'Unauthorized'], 403);
+//            }
 //        if(auth()->user()->can('isStudent', $student)){
 //            return $student;
 //        }
-//        Gate::authorize('isStudent', $student);
+      // Gate::authorize('isStudent', $student);
 
-//        if ($student->user_id !== auth()->id()) {
-//            abort(403);
-//        }
+        if ($student->user_id !== auth()->id()) {
+            abort(403);
+        }
             //  return $student;
             return new StudentsResource($student);
         }
-
 
         public
         function index1()

@@ -19,4 +19,7 @@ class ApiController extends Controller
         $values = explode(',',strtolower($param));
         return in_array(strtolower($relationship), $values);
     }
+//    public  function isAble($ability, $targetModel){
+//    return $this->authorize($ability, [$targetModel,$this->policyClass]);
+//    }
 }

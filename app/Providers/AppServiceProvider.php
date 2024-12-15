@@ -2,12 +2,17 @@
 
 namespace App\Providers;
 
+use App\Models\Student;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\StudentPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+      Student::class => StudentPolicy::class,
+    ];
     /**
      * Register any application services.
      */
@@ -21,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       // phpinfo();
+        //Gate::policy(Student::class, StudentPolicy::class);
+
+        // phpinfo();
 //        Gate::define('isStudent', function ($user, $student) {
 //            return  $student->user_id == auth()->id();
 //        });
