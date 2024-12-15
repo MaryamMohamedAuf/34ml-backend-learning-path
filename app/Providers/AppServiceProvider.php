@@ -11,7 +11,7 @@ use App\Policies\StudentPolicy;
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
-      Student::class => StudentPolicy::class,
+
     ];
     /**
      * Register any application services.

@@ -9,7 +9,8 @@ Route::get('/users/{user}', [UserController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/Students/{student}', [StudentController::class, 'show'])
-        ->can('show', 'student')
+       //->can('show', 'student')
+        //->middleware('can:show,student')
         ->name('students.show');
 
     Route::get('/Students', [StudentController::class, 'index']);

@@ -5,22 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Filters\V1\QueryFilters;
 use App\Http\Resources\StudentsResource;
 use App\Models\Student;
-use App\Models\Teacher;
 use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Filters\V1\StudentFilters;
-
+use Illuminate\Support\Facades\Auth;
+use App\Policies\StudentPolicy;
 class StudentController extends ApiController
 {
+    protected $policyClass = StudentPolicy::class;
     public function index(StudentFilters $filters)
     {
-//        [
-//            'includes'=>'user',
-//            'filters'=>[
-//                'title'=>'malak',
-//                'user_id'=>'14'
-//            ]
-//        ];
 //        if($this->includes('user')){
 //            return StudentsResource::collection(Student::with('user')->paginate());
 //        }
@@ -30,33 +24,22 @@ class StudentController extends ApiController
 
     public function show($id)
         {
+            $user = Auth::user();
+            if (!$user) {
+                abort(403, 'Unauthenticated');
+            }
+
             $student = Student::find($id);
-
-//        if($this->includes('user')){
-//            return new StudentsResource($student->load('user'));
-//        }
-//            if ($student->user_id != auth()->id()) {
-//                return response()->json(['error' => 'Unauthorized'], 403);
-//            }
-//        if(auth()->user()->can('isStudent', $student)){
-//            return $student;
-//        }
-      // Gate::authorize('isStudent', $student);
-
-        if ($student->user_id !== auth()->id()) {
-            abort(403);
-        }
-            //  return $student;
+            if (!$student) {
+                abort(404, 'Student not found');
+            }
+            $this->isAble('show', $student);
             return new StudentsResource($student);
         }
-
-        public
-        function index1()
+        public function index1()
         {
             $students = Student::with('tags')->get();
-
             foreach ($students as $student) {
-
                 echo $student->name . " Tags:\n";
                 foreach ($student->tags as $tag) {
                     echo "- " . $tag->name . "\n";
@@ -72,6 +55,4 @@ class StudentController extends ApiController
                 }
             }
         }
-
-
     }

@@ -2,21 +2,21 @@
 namespace App\Policies;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Access\Response;
 
 class StudentPolicy
 {
-//    public function show1(Student $student, User $user): bool
-//    {
-//        $student = $student->user_id == auth()->id();
-//        // return $student->user_id == auth()->id();
-//        //return $student->user->is($user);
-//        // dd(auth()->id());
-//        return $student;
-//    }
 
-    public function show(User $user, Student $student): bool
+    public function show(User $user, Student $student)
     {
-        //dd($user->id, $student->user_id);
-        return $student->user_id === $user->id;
+        Log::info('Policy check', [
+            'user_id' => $user->id,
+            'student_user_id' => $student->user_id,
+        ]);
+        return $student->user_id === $user->id
+                ? Response::allow()
+                : Response::deny('You do not own this student.');
     }
+
 }
