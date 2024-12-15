@@ -12,8 +12,15 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
+    public function run(): void{
+
+  User::create([
+      'email' => 'manager@gmail.com',
+      'password' => bcrypt('34ml'),
+      'is_manager' => '1',
+      'name' => 'manager',
+        ]);
+
         $this->call([
         StudentSeeder::class,
         TeacherSeeder::class,

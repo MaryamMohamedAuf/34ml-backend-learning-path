@@ -17,11 +17,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-public function student():hasMany
+public function students():hasMany
 {
     return $this->hasMany(Student::class);
 }
-    public function teacher()
+    public function teachers()
     {
         return $this->hasMany(Teacher::class);
     }

@@ -28,12 +28,12 @@ class StudentController extends ApiController
             if (!$user) {
                 abort(403, 'Unauthenticated');
             }
-
             $student = Student::find($id);
             if (!$student) {
                 abort(404, 'Student not found');
             }
             $this->isAble('show', $student);
+                //return $user->tokenCan('student:show') ? true : false;
             return new StudentsResource($student);
         }
         public function index1()

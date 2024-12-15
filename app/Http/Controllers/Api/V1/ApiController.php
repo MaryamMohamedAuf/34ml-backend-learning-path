@@ -11,13 +11,11 @@ class ApiController extends Controller
 {
     //use ApiRespones;
     use AuthorizesRequests; // Add this trait
-
     protected $policyClass;
     public  function includes( string $relationship):bool
     {
         $param = request()->get('includes');
         Log::info('Includes parameter:', ['includes' => $param]); // Log the parameter value
-
         if(!isset($param)){
             return false;
         }
@@ -25,6 +23,9 @@ class ApiController extends Controller
         return in_array(strtolower($relationship), $values);
     }
     public  function isAble($ability, $targetModel){
+        if (auth()->user()->cannot($ability, [$targetModel, $this->policyClass])) {
+            abort(403, 'Unauthorized action.');
+        }
  return $this->authorize($ability, [$targetModel,$this->policyClass]);
  }
 }
