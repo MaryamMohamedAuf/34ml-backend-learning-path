@@ -23,10 +23,10 @@ Route::get('/', function () {
 });
 Route::get('/token', function () {
     $user = auth()->user(); // Get the logged-in user
-    //$tokens = $user->createToken('token')->plainTextToken;
-$ab = $user->createToken('token', ['student:index']);
-    //return ($tokens);
-    return ($ab);
+   // $tokens = $user->createToken('token')->plainTextToken;
+$ab = $user->createToken('token', ['student:show']);
+   // return ($tokens);
+   return ($ab);
 });
 Route::middleware('auth:sanctum')->get('/tokens2', function () {
     $user = auth()->user();
@@ -40,15 +40,21 @@ Route::middleware('auth:sanctum')->get('/tokens2', function () {
         'abilities' => $abilities ?? 'No abilities assigned to this token',
     ];
 });
-
 Route::middleware('auth:sanctum')->get('/tokens', function () {
     $user = auth()->user();
-    $abilities = Abilities::getAbilities($user); // Get the user's abilities
-    if(!$abilities){
-        return "no abilities";
+    $currentToken = $user->currentAccessToken();
+
+    if ($currentToken instanceof \Laravel\Sanctum\TransientToken) {
+        return response()->json([
+            'message' => 'Authenticated via session, no token abilities available.',
+        ]);
     }
+
+    $abilities = $currentToken->abilities ?? [];
     return [
         'tokens' => $user->tokens,
         'abilities' => $abilities,
     ];
 });
+
+

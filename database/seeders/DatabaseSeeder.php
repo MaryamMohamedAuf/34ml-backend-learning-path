@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
       'is_manager' => '1',
       'name' => 'manager',
         ]);
+        User::create([
+            'email' => 'notManager@gmail.com',
+            'password' => bcrypt('34ml'),
+            'is_manager' => '0',
+            'name' => 'not manager',
+        ]);
 
         $this->call([
         StudentSeeder::class,
