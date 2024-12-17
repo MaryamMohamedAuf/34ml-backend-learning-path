@@ -1,9 +1,11 @@
 <?php
+
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Permissions\V1\Abilities;
+
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{user}', [UserController::class, 'show']);
 
@@ -23,10 +25,10 @@ Route::get('/', function () {
 });
 Route::get('/token', function () {
     $user = auth()->user(); // Get the logged-in user
-   // $tokens = $user->createToken('token')->plainTextToken;
-$ab = $user->createToken('token', ['student:show']);
-   // return ($tokens);
-   return ($ab);
+    // $tokens = $user->createToken('token')->plainTextToken;
+    $ab = $user->createToken('token', ['student:show']);
+    // return ($tokens);
+    return ($ab);
 });
 Route::middleware('auth:sanctum')->get('/tokens2', function () {
     $user = auth()->user();
@@ -56,5 +58,3 @@ Route::middleware('auth:sanctum')->get('/tokens', function () {
         'abilities' => $abilities,
     ];
 });
-
-
